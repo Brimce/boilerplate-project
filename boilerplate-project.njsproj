@@ -5,8 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{79626ce3-0719-4968-b911-64bdcb4299f5}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
-    <StartupFile>webpack.config.js</StartupFile>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>app\server\starter_with_babel.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -16,22 +16,37 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include=".babelrc" />
+    <Content Include="app\asset\material.min.css" />
+    <Content Include="app\client\index.jsx" />
+    <Content Include="app\components\counter_react.jsx" />
+    <Content Include="app\components\note.jsx" />
+    <Content Include="app\containers\main_container.jsx" />
+    <Content Include="app\routes.jsx" />
+    <Content Include="app\server\server.jsx" />
     <Content Include="indexTemplate.html" />
     <Content Include="package.json" />
     <Content Include="stats.json" />
+    <Content Include="app\asset\material.min.js" />
+    <Content Include="app\components\loader_react.jsx" />
+    <Content Include="app\lib\style_helper.js" />
+    <Compile Include="app\containers\error_container.js" />
+    <Compile Include="app\middleware\error_middleware.js" />
+    <Compile Include="app\reducers\error_reducer.js" />
+    <Compile Include="app\reducers\main_reducer.js" />
     <Compile Include="webpack.config.js" />
-    <Content Include="app\main.css" />
+    <Content Include="app\asset\main.css" />
     <Compile Include="test\test_helper.js" />
     <Compile Include="test\UnitTest.js" />
-    <Compile Include="app\actions\action_creators.js" />
+    <Content Include="app\actions\action_creators.js" />
     <Compile Include="app\api\counter.js" />
     <Compile Include="app\containers\DevTools.js" />
-    <Compile Include="app\lib\fetchComponentData.js" />
-    <Compile Include="app\lib\immutifyState.js" />
-    <Compile Include="app\lib\promiseMiddleware.js" />
+    <Content Include="app\lib\fetchComponentData.js" />
+    <Content Include="app\lib\immutifyState.js" />
+    <Compile Include="app\middleware\promiseMiddleware.js" />
     <Compile Include="app\reducers\counter_reducer.js" />
     <Compile Include="app\reducers\root_reducer.js" />
-    <Compile Include="app\server\starter_with_babel.js" />
+    <Content Include="app\server\starter_with_babel.js" />
     <Compile Include="app\store\configure_store.dev.js" />
     <Compile Include="app\store\configure_store.js" />
     <Compile Include="app\store\configure_store.prod.js" />
@@ -43,6 +58,7 @@
     <Folder Include="app" />
     <Folder Include="app\actions" />
     <Folder Include="app\api" />
+    <Folder Include="app\asset\" />
     <Folder Include="app\client" />
     <Folder Include="app\components" />
     <Folder Include="app\containers" />

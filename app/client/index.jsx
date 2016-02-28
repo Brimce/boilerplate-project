@@ -11,7 +11,9 @@ import ConfigureStore from '../store/configure_store';
 if ( !window.$REDUX_STATE )
     console.log( 'server-rendering state null: ', state );
 
-const initialState = ImmutifyState(window.$REDUX_STATE);
+//const initialState = ImmutifyState(window.$REDUX_STATE);
+//const initialState = JSON.parse(window.$REDUX_STATE);
+const initialState = window.$REDUX_STATE;
 console.log( 'server-rendering state restored: ', initialState );
 
 const store = ConfigureStore(initialState,browserHistory);

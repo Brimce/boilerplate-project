@@ -39,6 +39,7 @@ expressApp.use((req, res) => {
 
         function renderView() {
             
+            console.log('renderview');
             const reactHtml =  ReactDomServer.renderToString(
                 <Provider store={store}>
                     <RouterContext {...renderProps} />
@@ -46,22 +47,26 @@ expressApp.use((req, res) => {
             );
 
             const stringifyState = JSON.stringify(store.getState());
-
+            //console.log('state from server:', stringifyState);
+            //console.log('state from server:', JSON.parse(stringifyState));
             index = index.replace('reactHtml', reactHtml)
                 .replace('stringifyState', stringifyState);
 
             return index;
         }
 
-        //const htmlFinal = renderView();
-        //console.log(htmlFinal);
-
-        //res.end(htmlFinal);
-        //.catch(err => res.end(err.message));;
+      
         fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
           .then(renderView)
+          .catch(err => {
+              res.end('erreur : ', err.message);
+              console.log('erreur : ', err.message);
+          })
           .then(html => res.end(html))
-          .catch(err => res.end(err.message));
+          .catch(err => {
+              res.end('erreur : ', err.message);
+              console.log('erreur : ', err.message);
+          });
     });
 });
 

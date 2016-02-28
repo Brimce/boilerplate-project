@@ -5,6 +5,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const mergeLib = require('webpack-merge');
 const webpack = require('webpack');
 
+//titre index.html
+const appName = 'App boilerplate';
+//id de l'element du DOM ds lequel est injecté l'application react
+const reactDomElementId = 'react-view';
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: pathLib.join(__dirname, 'app'),
@@ -58,21 +62,18 @@ const common = {
         ]
     },
     plugins: [
+        new ExtractTextPlugin('[name].css'),
         new HtmlwebpackPlugin({
             template: 'indexTemplate.html',
-            title: 'My app',
-            appMountId: 'react-view',
-            files : {
-                css : [pathLib.join(PATHS.build,'bundle.css')]
-            }
+            title: appName,
+            appMountId: reactDomElementId
         }),
         new webpack.DefinePlugin({
             "process.env": {
                 BROWSER: JSON.stringify(true),
                 NODE_ENV: JSON.stringify( process.env.NODE_ENV || 'development' )
             }
-        }),
-        new ExtractTextPlugin('[name].css')
+        })
     ]
 };
 
@@ -94,13 +95,13 @@ if (TARGET === 'start' || !TARGET) {
             port: process.env.PORT
         },
         plugins: [
-            new webpack.HotModuleReplacementPlugin(),
+            new webpack.HotModuleReplacementPlugin()/*,
             new webpack.DefinePlugin({
             "process.env": {
                 BROWSER: JSON.stringify(true),
                 NODE_ENV: JSON.stringify( process.env.NODE_ENV || 'development' )
             }
-        })
+        )}*/
         ]
     });
 }

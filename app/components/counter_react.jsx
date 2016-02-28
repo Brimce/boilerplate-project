@@ -1,43 +1,61 @@
 import React, { Component, PropTypes } from 'react'
+import * as TodoActions from '../actions/action_creators'
+import {Button , FABButton, Icon } from 'react-mdl';
 
 class Counter extends Component {
   
     static propTypes = {
+        undo: PropTypes.func.isRequired,
+        redo: PropTypes.func.isRequired,
         increment: PropTypes.func.isRequired,
         incrementIfOdd: PropTypes.func.isRequired,
         incrementAsync: PropTypes.func.isRequired,
         decrement: PropTypes.func.isRequired,
-        counter: PropTypes.number.isRequired
+        counter: PropTypes.number.isRequired,
     };
 
     static needs = [
        TodoActions.getTodos
     ];
 
-    render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
-    return (
-        <p>
-        Clicked: {counter} times
-        {' '}
-        <button onClick={increment}>+</button>
-        {' '}
-        <button onClick={decrement}>-</button>
-        {' '}
-        <button onClick={incrementIfOdd}>Increment if odd</button>
-        {' '}
-        <button onClick={() => incrementAsync()}>Increment async</button>
-      </p>
-    );
-  }
-}
+    static style = {
+        margin: 12,
+    };
 
-//Counter.propTypes = {
-//  increment: PropTypes.func.isRequired,
-//  incrementIfOdd: PropTypes.func.isRequired,
-//  incrementAsync: PropTypes.func.isRequired,
-//  decrement: PropTypes.func.isRequired,
-//  counter: PropTypes.number.isRequired
-//}
+    render() {
+        //console.log('props from counter react: ', ...this.props);
+        const {
+            increment,
+            incrementIfOdd,
+            incrementAsync,
+            decrement,
+            counter,
+            undo,
+            redo
+        } = this.props
+
+        return (
+            <p>
+               Clicked: {counter} times
+                {' '}
+                <FABButton mini  onClick={increment} style={this.style}>
+                    <Icon name="add circle" />
+                </FABButton>
+                {' '}
+                <FABButton mini  onClick={decrement} style={this.style}>
+                    <Icon name="remove" />
+                </FABButton>
+                {' '}
+                <Button  onClick={incrementIfOdd}>Increment if odd</Button>
+                {' '}
+                <Button  onClick={() => incrementAsync()}>Increment async</Button>
+                {' '}
+                <Button  onClick={undo}>Undo</Button>
+                {' '}
+                <Button  onClick={redo}>Redo</Button>
+          </p>
+        );
+    }
+}
 
 export default Counter
