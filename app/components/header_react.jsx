@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 
-const  = React.createClass({
+const header_react = React.createClass({
   render () {
     return (
-      <div>blablavla</div>
+
     )
   }
 })
 
-export default
+export default header_react
