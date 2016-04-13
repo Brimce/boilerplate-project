@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-
+import {getTodos} from '../actions/action_creators'
 class Counter extends Component {
-  
+
     static propTypes = {
         increment: PropTypes.func.isRequired,
         incrementIfOdd: PropTypes.func.isRequired,
@@ -11,7 +11,7 @@ class Counter extends Component {
     };
 
     static needs = [
-       TodoActions.getTodos
+       getTodos
     ];
 
     render() {

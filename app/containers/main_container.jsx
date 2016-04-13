@@ -10,7 +10,7 @@ if ( process.env.BROWSER ) {
 }
 
 class MainContainer extends React.Component{
-    render(){        
+    render(){
         const isProduction = process.env.NODE_ENV === 'production';
 
         //return (
@@ -18,8 +18,10 @@ class MainContainer extends React.Component{
         //);
         return (
             <div>
+                <span>{`1 : Prtoduction ? ${isProduction}`}</span>
+              <br/>
                 <Counter {...this.props} />
-                {isProduction ? null : <DevTools />}                            
+                {isProduction ? null : <DevTools />}
             </div>
         );
     }

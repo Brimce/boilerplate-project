@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app/server/starter_with_babel",
     "build": "webpack -d --progress --watch",
+    "dev": "WEBPACK_ENV=dev ./node_modules/.bin/webpack --watch --inline",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
     "test:watch": "npm run test -- --watch"
   },
