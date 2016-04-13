@@ -9,15 +9,15 @@ import DevTools from './DevTools';
 
 if ( process.env.BROWSER ) {
     require('./../asset/main.css');
-    require('./../asset/material.min.css');    
+    require('./../asset/material.min.css');
     require('./../asset/material.min.js');
 }
 
 class MainContainer extends React.Component{
-    
-    render(){     
+
+    render(){
         const isProduction = process.env.NODE_ENV === 'production';
-        
+
         return (
             <div>
                 <LoaderReact isLoading={this.props.isLoading} />
@@ -29,7 +29,12 @@ class MainContainer extends React.Component{
                          undo={this.props.undo}
                          redo={this.props.redo} />
                     {/*isProduction ? null : <DevTools />*/}
-                 <ErrorContainer/>   
+                 <ErrorContainer/>
+                 <br/>
+                <span>{`1 : Prtoduction ? ${isProduction}`}</span>
+                 <br/>
+                   <Counter {...this.props} />
+                   {isProduction ? null : <DevTools />}
 </div>
         );
     }

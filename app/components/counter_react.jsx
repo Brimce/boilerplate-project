@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import * as TodoActions from '../actions/action_creators'
+
 import {Button , FABButton, Icon } from 'react-mdl';
 
+import {getTodos} from '../actions/action_creators'
+
 class Counter extends Component {
-  
+
     static propTypes = {
         undo: PropTypes.func.isRequired,
         redo: PropTypes.func.isRequired,
@@ -15,7 +17,7 @@ class Counter extends Component {
     };
 
     static needs = [
-       TodoActions.getTodos
+       getTodos
     ];
 
     static style = {
