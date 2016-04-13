@@ -31,10 +31,9 @@ class MainContainer extends React.Component{
                     {/*isProduction ? null : <DevTools />*/}
                  <ErrorContainer/>
                  <br/>
-                <span>{`1 : Prtoduction ? ${isProduction}`}</span>
+                <span>{`1 : Production ? ${isProduction}`}</span>
                  <br/>
-                   <Counter {...this.props} />
-                   {isProduction ? null : <DevTools />}
+                {isProduction ? null : <DevTools />}
 </div>
         );
     }
