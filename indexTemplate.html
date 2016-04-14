@@ -1,41 +1,26 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="ie6" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <!--<![endif]-->
+<html>
 <head>
   <meta charset="utf-8">
-  <title>{%=o.htmlWebpackPlugin.options.title || 'Webpack App'%}</title>
-  {% for (var css in o.htmlWebpackPlugin.files.css) { %}
-  <link href="{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet">
-  {% } %}
+  <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script>window.$REDUX_STATE = stringifyState;</script>
 </head>
 <body>
-{% if (o.htmlWebpackPlugin.options.appMountId) { %}
-<div id="{%=o.htmlWebpackPlugin.options.appMountId%}">reactHtml</div>
-{% } %}
-{% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-<script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
-{% } %}
-{% if (o.htmlWebpackPlugin.options.devServer) { %}
-<script src="{%=o.htmlWebpackPlugin.options.devServer%}/webpack-dev-server.js"></script>
-{% } %}
-{% if (o.htmlWebpackPlugin.options.googleAnalytics) { %}
+<div id="<%= htmlWebpackPlugin.options.appMountId%>">reactHtml</div>
+<% if (htmlWebpackPlugin.options.googleAnalytics) { %>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  {% if (o.htmlWebpackPlugin.options.googleAnalytics.trackingId) { %}
-    ga('create', '{%=o.htmlWebpackPlugin.options.googleAnalytics.trackingId%}', 'auto');
-    {% } else { throw new Error("html-webpack-template requires googleAnalytics.trackingId config"); }%}
-  {% if (o.htmlWebpackPlugin.options.googleAnalytics.pageViewOnLoad) { %}
+  <% if (htmlWebpackPlugin.options.googleAnalytics.trackingId) { %>
+    ga('create', '<%=htmlWebpackPlugin.options.googleAnalytics.trackingId%>', 'auto');
+    <% } else { throw new Error("html-webpack-template requires googleAnalytics.trackingId config"); }%>
+  <% if (htmlWebpackPlugin.options.googleAnalytics.pageViewOnLoad) { %>
     ga('send', 'pageview');
-    {% } %}
+    <% } %>
 </script>
-{% } %}
+<% } %>
 </body>
 </html>

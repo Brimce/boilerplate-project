@@ -1,7 +1,7 @@
 import React                from 'react';
 import ReactDom from 'react-dom';
 import { Router, browserHistory } from 'react-router'
-import { syncHistory } from 'react-router-redux'
+import { syncHistoryWithStore  } from 'react-router-redux'
 import { Provider }         from 'react-redux';
 import { fromJS }           from 'immutable';
 import Routes               from '../routes.jsx';
@@ -16,11 +16,12 @@ if ( !window.$REDUX_STATE )
 const initialState = window.$REDUX_STATE;
 console.log( 'server-rendering state restored: ', initialState );
 
-const store = ConfigureStore(initialState,browserHistory);
+const store = ConfigureStore(browserHistory,initialState);
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDom.render(
   <Provider store={store}>
-    <Router children={Routes} history={browserHistory} />
+    <Router children={Routes} history={history} />
   </Provider>,
   document.getElementById('react-view')
 );

@@ -50,7 +50,7 @@ class Counter extends Component {
                 {' '}
                 <Button  onClick={incrementIfOdd}>Increment if odd</Button>
                 {' '}
-                <Button  onClick={() => incrementAsync()}>Increment async</Button>
+                <Button  onClick={() => incrementAsync()}>Increment async ! </Button>
                 {' '}
                 <Button  onClick={undo}>Undo</Button>
                 {' '}
