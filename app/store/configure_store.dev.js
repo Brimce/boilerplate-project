@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 import DevTools from './../containers/DevTools'
 import Thunk from 'redux-thunk'
 import CreateLogger from 'redux-logger'
-import RootReducer from './../reducers/root_reducer';
+import RootReducer from './../module_redux/RootReducer';
 import PromiseMiddleware from './../middleware/promiseMiddleware';
 import ErrorMiddleware from './../middleware/error_middleware';
 

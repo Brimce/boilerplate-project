@@ -1,14 +1,12 @@
 import React, { Component, PropTypes } from 'react'
-
 import {Button , FABButton, Icon } from 'react-mdl';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import CounterVM from './CounterVM'
 
-import {getTodos} from '../actions/action_creators'
-
-class Counter extends Component {
+class CounterView extends Component {
 
     static propTypes = {
-        undo: PropTypes.func.isRequired,
-        redo: PropTypes.func.isRequired,
         increment: PropTypes.func.isRequired,
         incrementIfOdd: PropTypes.func.isRequired,
         incrementAsync: PropTypes.func.isRequired,
@@ -16,9 +14,9 @@ class Counter extends Component {
         counter: PropTypes.number.isRequired,
     };
 
-    static needs = [
+    /*static needs = [
        getTodos
-    ];
+    ];*/
 
     static style = {
         margin: 12,
@@ -32,8 +30,8 @@ class Counter extends Component {
             incrementAsync,
             decrement,
             counter,
-            undo,
-            redo
+            //undo,
+            //redo
         } = this.props
 
         return (
@@ -51,13 +49,30 @@ class Counter extends Component {
                 <Button  onClick={incrementIfOdd}>Increment if odd</Button>
                 {' '}
                 <Button  onClick={() => incrementAsync()}>Increment async ! </Button>
-                {' '}
-                <Button  onClick={undo}>Undo</Button>
-                {' '}
-                <Button  onClick={redo}>Redo</Button>
+
           </p>
         );
     }
 }
 
-export default Counter
+//inject des propriet�s du store dans les propri�t�s du container
+function mapStateToProps(state) {
+  return {
+      counter: state.Counter.count
+  }
+}
+
+//inject des actionCreators dans les proprietes du container
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        increment: CounterVM.increment,
+        decrement: CounterVM.decrement,
+        incrementAsync: CounterVM.incrementAsync,
+        incrementIfOdd: CounterVM.incrementIfOdd,
+        showLoader: CounterVM.showLoading,
+        //undo: CounterVM.undo,
+        //redo: CounterVM.redo
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterView)

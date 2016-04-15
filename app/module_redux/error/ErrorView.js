@@ -1,11 +1,11 @@
-﻿import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Snackbar} from 'react-mdl'
-import {resetErrorMessage,retryAndResetErrorMessage} from '../actions/action_creators'
+import ErrorVM from './ErrorVM'
 
-class ErrorContainer  extends React.Component{
-    
+class ErrorView  extends React.Component{
+
     static propTypes = {
         error: PropTypes.object
     }
@@ -16,20 +16,21 @@ class ErrorContainer  extends React.Component{
 
     render(){
         //par defaut, pour que la snackbar apparaisse lors de la 1ere erreur
-        if(!this.props.error) 
-            return <Snackbar 
-                        active={false} 
+        if(!this.props.error)
+            return <Snackbar
+                        active={false}
                         onTimeout={this.handleTimeoutSnackbar.bind(this)}
                     />;
-        
+
         const {errorMessage, retryAction} = this.props.error;
-        
-        if(!retryAction) 
-            return <Snackbar 
-                        active={true} 
+        console.log(errorMessage);
+        if(!retryAction)
+            return <Snackbar
+                        active={true}
                         onTimeout={this.handleTimeoutSnackbar.bind(this)}
+                        timeout={10000}
                     >{errorMessage}</Snackbar>;
-        
+
         const {retryAndResetErrorMessage} = this.props;
         return(
             <Snackbar
@@ -47,14 +48,15 @@ class ErrorContainer  extends React.Component{
 //inject des propriet�s du store dans les propri�t�s du container
 function mapStateToProps(state) {
     return {
-        error: state.ErrorReducer
+        error: state.Error
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({    
-        retryAndResetErrorMessage: retryAndResetErrorMessage
+    return bindActionCreators({
+        retryAndResetErrorMessage: ErrorVM.retryAndResetErrorMessage
     }, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(ErrorContainer);
+
+export default connect(mapStateToProps,mapDispatchToProps)(ErrorView);
 //export default connect(mapStateToProps)(ErrorContainer);
