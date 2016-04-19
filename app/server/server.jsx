@@ -34,48 +34,47 @@ expressApp.use((req, res) => {
     const history = syncHistoryWithStore(memoryHistory, store)
 
     match({
-        history,
-        routes: Routes,
-        location: history//req.url
+        history, routes: Routes, location: history //req.url
     }, (err, redirectLocation, renderProps) => {
         if (err) {
             console.error(err);
-            return res.status(500).end('Internal server error');
+            return res
+                .status(500)
+                .end('Internal server error');
         }
 
-        if (!renderProps)
+        if (!renderProps) 
             return res.status(404).end('Not found');
-
+        
         function renderView() {
-            try {
-                console.log(`renderview ${JSON.stringify(store.getState())}`);
-                //console.log(`render prop ${renderProps}`);
-                const reactHtml = ReactDomServer.renderToString(
-                    <Provider store={store}>
-                        <RouterContext {...renderProps}/>
-                    </Provider>
-                );
-                console.log('renderview 1');
+            console.log(`renderview ${JSON.stringify(store.getState())}`);
+            //console.log(`render prop ${renderProps}`);
+            const reactHtml = ReactDomServer.renderToString(
+                <Provider store={store}>
+                    <RouterContext {...renderProps}/>
+                </Provider>
+            );
+            console.log('renderview 1');
 
-                const stringifyState = JSON.stringify(store.getState());
-                //console.log('state from server:', stringifyState);
-                //console.log('state from server:', JSON.parse(stringifyState));
-                index = index.replace('reactHtml', reactHtml).replace('stringifyState', stringifyState);
+            const stringifyState = JSON.stringify(store.getState());
+            //console.log('state from server:', stringifyState);
+            //console.log('state from server:', JSON.parse(stringifyState));
+            index = index
+                .replace('reactHtml', reactHtml)
+                .replace('stringifyState', stringifyState);
 
-                return index;
-            } catch (e) {
-                res.status(500).send('erreur 3: '+ e.message);
-                console.log('erreur 3: ', e.message, e.stack);
-            }
+            return index;
         }
 
-        fetchComponentData(store.dispatch, renderProps.components, renderProps.params).then(renderView).catch(err => {
-            res.end('erreur 1: ', err.message);
-            console.log('erreur 1: ', err.message);
-        }).then(html => res.end(html)).catch(err => {
-            res.end('erreur 2: ', err.message);
-            console.log('erreur 2: ', err.message);
-        });
+        fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+            .then(renderView)
+            .then(html => res.end(html))
+            .catch(err => {
+                res
+                    .status(500)
+                    .send('erreur : ', err.message);
+                console.log('erreur : ', err.message, err.stack);
+            });
     });
 });
 
